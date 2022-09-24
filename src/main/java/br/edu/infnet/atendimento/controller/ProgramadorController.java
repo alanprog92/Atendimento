@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import br.edu.infnet.atendimento.model.domain.Programador;
+import br.edu.infnet.atendimento.model.domain.Usuario;
 import br.edu.infnet.atendimento.model.service.ProgramadorService;
 
 @Controller
@@ -17,7 +19,7 @@ public class ProgramadorController {
 	ProgramadorService programadorService;
 	
 	@GetMapping(value= "/programador/lista")
-	public String telaLista(Model model) {
+	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
 		model.addAttribute("listagem", programadorService.obterLista());
 		
@@ -33,7 +35,9 @@ public class ProgramadorController {
 	}	
 	
 	@PostMapping(value= "/programador/cadastro")
-	public String inclusao(Model model, Programador programador) {
+	public String inclusao(Model model, Programador programador, @SessionAttribute("user") Usuario usuario) {
+		
+		programador.setUsuario(usuario);
 		
 		programadorService.incluir(programador);
 		

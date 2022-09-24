@@ -1,40 +1,36 @@
 package br.edu.infnet.atendimento.model.service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.atendimento.model.domain.Clientes;
-import br.edu.infnet.atendimento.model.test.AppImpressao;
+import br.edu.infnet.atendimento.model.repository.ClientesRepository;
 
 @Service
 public class ClientesService {
-	private static Map<Integer, Clientes> mapaCliente = new HashMap<Integer, Clientes>();
-	public static Integer id = 1;
+	
+	@Autowired
+	ClientesRepository clientesRepository;
 	
 	public void incluir(Clientes cliente) {
 		
-		cliente.setId(id++);
-		
-		mapaCliente.put(cliente.getId(), cliente);
-		
-		AppImpressao.relatorio("Inclusão do Cliente "+id, cliente);
+		clientesRepository.save(cliente);
 		
 	}
 	
-	public Clientes buscaCliente( Integer id) {
-		return mapaCliente.get(id);
+	public Optional<Clientes> buscaCliente( Integer id) {
+		return clientesRepository.findById(id); 
 	}
 	
 	public Collection<Clientes> obterLista(){
-		return mapaCliente.values();
+		return (Collection<Clientes>) clientesRepository.findAll();
 	}
 	
 	public void excluir(Integer id) {
-		System.out.println("ID = "+id);
-		mapaCliente.remove(id);
+		clientesRepository.deleteById(id);
 	}
 
 }

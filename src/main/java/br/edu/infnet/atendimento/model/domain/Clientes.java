@@ -2,19 +2,48 @@ package br.edu.infnet.atendimento.model.domain;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import br.edu.infnet.atendimento.interfaces.IPrinter;
 
+@Entity
+@Table(name = "clientes")
 public class Clientes implements IPrinter {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	private String nome;
     private int idade;
     private char sexo;
     private String CPF;
+    
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "residencial")
     private Endereco residencial;
+    
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
     
 	public Clientes() {
 	}    
     
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public Clientes(String nome, int idade, char sexo, String cPF, Endereco residencial) {
 		this.nome = nome;
 		this.idade = idade;

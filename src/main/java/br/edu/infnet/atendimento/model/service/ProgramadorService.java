@@ -1,36 +1,35 @@
 package br.edu.infnet.atendimento.model.service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.atendimento.model.domain.Programador;
+import br.edu.infnet.atendimento.model.repository.ProgramadorRepository;
 import br.edu.infnet.atendimento.model.test.AppImpressao;
 
 @Service
 public class ProgramadorService {
-	private static Map<Integer, Programador> mapaProgramador = new HashMap<Integer, Programador>();
-	public static Integer id = 1;
+
+    @Autowired
+    ProgramadorRepository programadorRepository;
 	
 	public void incluir(Programador programador) {
 		
-		programador.setId(id++);
+		programadorRepository.save(programador);
 		
-		mapaProgramador.put(programador.getId(), programador);
-		
-		AppImpressao.relatorio("Inclusão do Programador "+id, programador);
+		AppImpressao.relatorio("Inclusão do Programador ", programador);
 		
 	}
 	
 	public Collection<Programador> obterLista(){
-		return mapaProgramador.values();
+		return (Collection<Programador>) programadorRepository.findAll();
 	}
 	
 	public void excluir(Integer id) {
 		System.out.println("ID = "+id);
-		mapaProgramador.remove(id);
+		programadorRepository.deleteById(id);
 	}
 
 }

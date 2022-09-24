@@ -1,36 +1,35 @@
 package br.edu.infnet.atendimento.model.service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.atendimento.model.domain.Suporte;
+import br.edu.infnet.atendimento.model.repository.SuporteRepository;
 import br.edu.infnet.atendimento.model.test.AppImpressao;
 
 @Service
 public class SuporteService {
-	private static Map<Integer, Suporte> mapaSuporte = new HashMap<Integer, Suporte>();
-	public static Integer id = 1;
-	
+   
+	@Autowired
+	SuporteRepository suporteRepository;
+
 	public void incluir(Suporte suporte) {
 		
-		suporte.setId(id++);
+		suporteRepository.save(suporte);
 		
-		mapaSuporte.put(suporte.getId(), suporte);
-		
-		AppImpressao.relatorio("Inclusão do Suporte "+id, suporte);
+		AppImpressao.relatorio("Inclusão do Suporte ", suporte);
 		
 	}
 	
 	public Collection<Suporte> obterLista(){
-		return mapaSuporte.values();
+		return (Collection<Suporte>) suporteRepository.findAll();
 	}
 	
 	public void excluir(Integer id) {
 		System.out.println("ID = "+id);
-		mapaSuporte.remove(id);
+		suporteRepository.deleteById(id);
 	}
 
 }

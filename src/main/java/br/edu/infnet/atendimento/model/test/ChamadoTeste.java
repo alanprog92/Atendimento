@@ -75,7 +75,7 @@ public class ChamadoTeste implements ApplicationRunner {
 					Clientes c1 = new Clientes(campos[2], Integer.parseInt(campos[3]), campos[4].charAt(0), campos[5], e1);			
 
 					Chamado chamado1 = new Chamado(c1);    	
-			    	chamado1.setCodigo(Integer.parseInt(campos[6]));
+			    	chamado1.setId(Integer.parseInt(campos[6]));
 			    	chamado1.setProblema(campos[7]);
 			    	chamado1.setDataini(dataini);
 			    	chamado1.setDatafim(datafim);

@@ -32,13 +32,13 @@
 	    <tbody>
 	      <c:forEach var="b" items="${listagem}">
 		      <tr>
-		        <td>${b.codigo}</td>
+		        <td>${b.id}</td>
 		        <td>${b.dataini}</td>
 		        <td>${b.datafim}</td>
 		        <td>${b.problema}</td>
 		        <td>${b.solucao}</td>
 		        <td>${b.cliente.getNome()}</td>
-		        <td><a href="/chamado/${b.codigo}/excluir">excluir</a></td>
+		        <td><a href="/chamado/${b.id}/excluir">excluir</a></td>
 		      </tr>
 		   </c:forEach>	      
 	      	      

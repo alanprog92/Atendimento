@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import br.edu.infnet.atendimento.model.domain.Suporte;
+import br.edu.infnet.atendimento.model.domain.Usuario;
 import br.edu.infnet.atendimento.model.service.SuporteService;
 
 @Controller
@@ -17,7 +19,7 @@ public class SuporteController {
 	SuporteService suporteService;
 	
 	@GetMapping(value= "/suporte/lista")
-	public String telaLista(Model model) {
+	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
 		model.addAttribute("listagem", suporteService.obterLista());
 		
@@ -33,8 +35,9 @@ public class SuporteController {
 	}	
 	
 	@PostMapping(value= "/suporte/cadastro")
-	public String inclusao(Model model, Suporte suporte) {
+	public String inclusao(Model model, Suporte suporte, @SessionAttribute("user") Usuario usuario) {
 		
+		suporte.setUsuario(usuario);
 		suporteService.incluir(suporte);
 		
 		return "redirect:/suporte/lista";

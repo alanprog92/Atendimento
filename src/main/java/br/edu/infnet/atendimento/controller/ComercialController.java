@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import br.edu.infnet.atendimento.model.domain.Comercial;
+import br.edu.infnet.atendimento.model.domain.Usuario;
 import br.edu.infnet.atendimento.model.service.ComercialService;
 
 @Controller
@@ -17,7 +19,7 @@ public class ComercialController {
 	ComercialService comercialService;
 	
 	@GetMapping(value= "/comercial/lista")
-	public String telaLista(Model model) {
+	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
 		model.addAttribute("listagem", comercialService.obterLista());
 		
@@ -33,7 +35,9 @@ public class ComercialController {
 	}
 	
 	@PostMapping(value= "/comercial/cadastro")
-	public String inclusao(Model model, Comercial comercial) {
+	public String inclusao(Model model, Comercial comercial, @SessionAttribute("user") Usuario usuario) {
+		
+		comercial.setUsuario(usuario);
 		
 		comercialService.incluir(comercial);
 		

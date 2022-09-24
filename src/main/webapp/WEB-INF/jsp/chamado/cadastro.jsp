@@ -46,7 +46,7 @@
 	  
 	<c:forEach var="profissional" items="${profissionais}">
 		<div class="form-check">
-		  <input class="form-check-input" type="checkbox" value="${ profissional }" name="profissionais">
+		  <input class="form-check-input" type="checkbox" value="${ profissional.id }" name="profissionais">
 		  <label class="form-check-label">
 		    ${ profissional.nome }
 		  </label>

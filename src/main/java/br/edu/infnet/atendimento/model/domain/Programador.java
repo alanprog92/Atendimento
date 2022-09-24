@@ -1,5 +1,10 @@
 package br.edu.infnet.atendimento.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "programador")
 public class Programador extends Profissional {
     private String linguagem;
     private char sabeoo;

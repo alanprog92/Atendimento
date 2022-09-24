@@ -4,20 +4,52 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import br.edu.infnet.atendimento.interfaces.IPrinter;
 import br.edu.infnet.atendimento.model.exceptions.ClienteChamadoVazio;
 
+@Entity
+@Table(name = "chamado")
 public class Chamado implements IPrinter {
-	private int codigo;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
     private String problema;
     private LocalDate dataini;
     private LocalDate datafim;
     private String solucao;
+    @OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "idCliente")
     private Clientes cliente;
+    
+    @ManyToMany(cascade = CascadeType.DETACH)
     private List<Profissional> profissionais;
     
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
     
     
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public Chamado() {
 	}
 
@@ -30,20 +62,20 @@ public class Chamado implements IPrinter {
 		this.cliente = cliente;
 	}
 	
-	public Chamado(int codigo, String problema, LocalDate dataini, LocalDate datafim, String solucao) {
-		this.codigo = codigo;
+	public Chamado(int id, String problema, LocalDate dataini, LocalDate datafim, String solucao) {
+		this.id = id;
 		this.problema = problema;
 		this.dataini = dataini;
 		this.datafim = datafim;
 		this.solucao = solucao;
 	}
 
-	public int getCodigo() {
-		return codigo;
+	public int getId() {
+		return id;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getProblema() {
@@ -103,13 +135,13 @@ public class Chamado implements IPrinter {
 
 	@Override
 	public String toString() {
-		return "Chamado [codigo=" + codigo + ", problema=" + problema + ", dataini=" + dataini + ", datafim=" + datafim
+		return "Chamado [id=" + id + ", problema=" + problema + ", dataini=" + dataini + ", datafim=" + datafim
 				+ ", solucao=" + solucao + ", cliente=" + cliente + ", profissionais=" + profissionais + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -121,7 +153,7 @@ public class Chamado implements IPrinter {
 		if (getClass() != obj.getClass())
 			return false;
 		Chamado other = (Chamado) obj;
-		return codigo == other.codigo;
+		return id == other.id;
 	} 
 
 	

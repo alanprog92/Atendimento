@@ -1,7 +1,11 @@
 package br.edu.infnet.atendimento.model.domain;
-
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "comercial")
 public class Comercial extends Profissional {
 	
     private LocalDate dtultmavenda;

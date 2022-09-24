@@ -1,5 +1,10 @@
 package br.edu.infnet.atendimento.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "suporte")
 public class Suporte extends Profissional{
 	
     private String sopreferido;

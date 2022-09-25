@@ -21,7 +21,7 @@ public class ComercialController {
 	@GetMapping(value= "/comercial/lista")
 	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", comercialService.obterLista());
+		model.addAttribute("listagem", comercialService.obterLista(usuario));
 		
 		return "comercial/lista";
 	}

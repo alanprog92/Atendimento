@@ -20,7 +20,7 @@ public class ClientesController {
 	@GetMapping(value= "/clientes/lista")
 	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", clientesService.obterLista());
+		model.addAttribute("listagem", clientesService.obterLista(usuario));
 		
 		return "clientes/lista";
 	}

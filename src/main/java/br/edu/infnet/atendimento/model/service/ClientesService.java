@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.atendimento.model.domain.Clientes;
+import br.edu.infnet.atendimento.model.domain.Usuario;
 import br.edu.infnet.atendimento.model.repository.ClientesRepository;
 
 @Service
@@ -28,6 +29,10 @@ public class ClientesService {
 	public Collection<Clientes> obterLista(){
 		return (Collection<Clientes>) clientesRepository.findAll();
 	}
+	
+	public Collection<Clientes> obterLista(Usuario usuario){
+		return (Collection<Clientes>) clientesRepository.findAll(usuario.getId());
+	}	
 	
 	public void excluir(Integer id) {
 		clientesRepository.deleteById(id);

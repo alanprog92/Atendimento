@@ -38,7 +38,7 @@ public class ChamadoController {
 	@GetMapping(value= "/chamado/lista")
 	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", chamadoService.obterLista());
+		model.addAttribute("listagem", chamadoService.obterLista(usuario));
 		
 		return "chamado/lista";
 	}

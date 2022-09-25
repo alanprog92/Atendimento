@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.atendimento.model.domain.Profissional;
+import br.edu.infnet.atendimento.model.domain.Usuario;
 import br.edu.infnet.atendimento.model.repository.ProfissionalRepository;
 
 @Service
@@ -28,6 +29,10 @@ public class ProfissionalService {
 	public Collection<Profissional> obterLista(){
 		return (Collection<Profissional>) profissionalRepository.findAll();
 	}
+	
+	public Collection<Profissional> obterLista(Usuario usuario){
+		return (Collection<Profissional>) profissionalRepository.findAll(usuario.getId());
+	}		
 	
 	public void excluir(Integer id) {
 		profissionalRepository.deleteById(id);

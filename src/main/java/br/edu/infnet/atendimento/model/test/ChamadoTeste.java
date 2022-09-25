@@ -17,7 +17,9 @@ import br.edu.infnet.atendimento.model.domain.Clientes;
 import br.edu.infnet.atendimento.model.domain.Comercial;
 import br.edu.infnet.atendimento.model.domain.Endereco;
 import br.edu.infnet.atendimento.model.domain.Profissional;
+import br.edu.infnet.atendimento.model.domain.Usuario;
 import br.edu.infnet.atendimento.model.exceptions.ClienteChamadoVazio;
+import br.edu.infnet.atendimento.model.repository.UsuarioRepository;
 import br.edu.infnet.atendimento.model.service.ChamadoService;
 
 @Component
@@ -25,6 +27,9 @@ public class ChamadoTeste implements ApplicationRunner {
 	
 	@Autowired
 	ChamadoService chamadoService;
+	
+	@Autowired
+	UsuarioRepository usuarioRepository;	
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -81,6 +86,10 @@ public class ChamadoTeste implements ApplicationRunner {
 			    	chamado1.setDatafim(datafim);
 			    	chamado1.setSolucao(campos[10]);    
 			    	chamado1.setProfissionais(profissionais);
+			    	
+					Usuario usuario = usuarioRepository.validaUsuario("admin@teste.com");
+					chamado1.setUsuario(usuario);
+			    	
 			    	chamadoService.incluir(chamado1);
 				}catch (ClienteChamadoVazio e) {
 					System.out.println("[ERRO] : "+e.getMessage());

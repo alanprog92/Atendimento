@@ -21,7 +21,7 @@ public class ProgramadorController {
 	@GetMapping(value= "/programador/lista")
 	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", programadorService.obterLista());
+		model.addAttribute("listagem", programadorService.obterLista(usuario));
 		
 		return "programador/lista";
 	}

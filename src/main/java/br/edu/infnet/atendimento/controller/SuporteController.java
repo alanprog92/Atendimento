@@ -21,7 +21,7 @@ public class SuporteController {
 	@GetMapping(value= "/suporte/lista")
 	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", suporteService.obterLista());
+		model.addAttribute("listagem", suporteService.obterLista(usuario));
 		
 		return "suporte/lista";
 	}

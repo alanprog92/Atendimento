@@ -6,12 +6,14 @@ import java.io.FileReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.atendimento.model.domain.Usuario;
 import br.edu.infnet.atendimento.model.service.UsuarioService;
 
 @Component
+@Order(1)
 public class UsuarioTeste implements ApplicationRunner {
 	
 	@Autowired

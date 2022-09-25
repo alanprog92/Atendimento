@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import br.edu.infnet.atendimento.model.domain.Endereco;
 import br.edu.infnet.atendimento.model.domain.Suporte;
+import br.edu.infnet.atendimento.model.domain.Usuario;
+import br.edu.infnet.atendimento.model.repository.UsuarioRepository;
 import br.edu.infnet.atendimento.model.service.SuporteService;
 
 @Component
@@ -17,6 +19,9 @@ public class SuporteTeste implements ApplicationRunner {
 
 	@Autowired
 	SuporteService suporteService;
+	
+	@Autowired
+	UsuarioRepository usuarioRepository;	
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -47,6 +52,10 @@ public class SuporteTeste implements ApplicationRunner {
 		        e1.setCidade(campos[7]);
 		        e1.setCEP( Integer.parseInt(campos[8]));    	    	
 		        s1.setResidencial(e1);    	
+		        
+				Usuario usuario = usuarioRepository.validaUsuario("admin@teste.com");
+				s1.setUsuario(usuario);
+		        
 		        suporteService.incluir(s1);
 					}catch (Exception e) {
 						System.out.println("[ERRO]: "+e.getMessage());
